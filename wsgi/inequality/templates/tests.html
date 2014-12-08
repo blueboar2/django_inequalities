@@ -1,0 +1,29 @@
+{% block head %}
+  <title>Система проверки знаний по теме "Неравенства"| Список тестов</title>
+  <link rel="stylesheet" type="text/css" href="{{ SITE_URL }}/static/css/style.css">
+{% endblock %}
+
+{% block body %}
+  <p align=right><a href="/wsgi/user/logout">Выйти из системы</a></p>
+
+  <header>
+    <h1>Список назначенных тестов</h1>
+  </header>
+
+  <section>
+  {% if tests %}
+  <ul>
+  {% for test in tests %}
+  {% if test.completequestions != test.testnumquestions %}
+  <li><A HREF="{{ SITE_URL }}/wsgi/tests/{{ test.id }}/">{{ test.testname }}</A>. Выполнено заданий {{ test.completequestions }} из {{ test.testnumquestions }}.</li>
+  {% else %}
+  <li>Тест {{ test.testname }} пройден. Выполнено заданий верно {{ test.truequestions }} из {{ test.testnumquestions }}</li>
+  {% endif %}
+  {% endfor %}
+  </ul>
+  {% else %}
+  <H2 class=center>Вам не назначено никаких тестов</H2>
+  {% endif %}
+
+  </section>
+{% endblock %}

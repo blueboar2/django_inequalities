@@ -1,0 +1,50 @@
+{% block head %}
+  <title>Система проверки знаний по теме "Неравенства"| Тест</title>
+  <link rel="stylesheet" type="text/css" href="{{ SITE_URL }}/static/css/style.css">
+  <script type="text/javascript" src="{{ SITE_URL }}/static/jquery/jquery-2.1.1.js" ></script>
+  <script type="text/javascript" src="{{ SITE_URL }}/static/mathjax/MathJax.js?config=AM_HTMLorMML-full" ></script>
+  <script type="text/javascript" src="{{ SITE_URL }}/static/js/reload.js" ></script>
+{% endblock %}
+
+{% block body %}
+  <p align=right><a href="/wsgi/user/logout">Выйти из системы</a></p>
+
+  {% if tohandle = 0 %}
+  <header>
+    <h1>Такого теста не существует</h1>
+    <h3><A HREF="{{ SITE_URL }}/wsgi/">Вернитесь обратно и попробуйте снова</A></h3>
+  </header>
+  {% endif %}
+  {% if tohandle = 1 %}
+  <header>
+    <h1>Данный тест назначен не вам</h1>
+    <h3><A HREF="{{ SITE_URL }}/wsgi/">Вернитесь обратно и выберите свой тест</A></h3>
+  </header>
+  {% endif %}
+  {% if tohandle = 2 %}
+  <header>
+    <h1>Вопрос номер {{ numquestion }} из {{ questions }}</h1>
+  </header>
+  <content>
+  <h3>Решите неравенство:
+  <DIV id="mathjaxquestion">`{{ questiontext }}`</DIV>
+  </h3><BR>
+  
+  <FORM class="inequality" METHOD="POST" action="{{ SITE_URL }}/wsgi/try/">
+  {% csrf_token %}
+  <h3>
+  Ответ:
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <INPUT id="mathjaxanswer" name="mathjaxanswer" type="text" onkeyup='updatemathjaxanswer()' size=100>
+  </h3>
+  <div class="answerrepresentation" id="mathjaxanswerrepresentation"></div>
+
+  <INPUT type="hidden" name="testassignnum" value="{{ testassignnum }}">
+  <INPUT type="hidden" name="numquestion" value="{{ numquestion }}">
+
+  <INPUT class="submit" type="submit" value="Ответить">
+  </FORM>
+  <div class="RET">&nbsp;</div>
+  </content>
+  {% endif %}
+{% endblock %}

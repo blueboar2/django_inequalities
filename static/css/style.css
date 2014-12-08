@@ -1,0 +1,40 @@
+header h1 {
+    text-align:center;
+    padding-bottom:30px;
+}
+
+h2.center {
+    text-align:center;
+}
+
+header h3 {
+    text-align:center;
+}
+
+content h3 {
+    text-align:center;
+}
+
+content div.answerrepresentation {
+    text-align:center;
+}
+
+content div.RET {
+    text-align:center;
+    color:red;
+}
+
+.toc {
+    text-align:center;
+}
+
+.lopa {
+    display: table;
+    margin: 0 auto;
+}
+
+.submit {
+    display: table;
+    margin: 0 auto;
+    margin-top: 20px;
+}
