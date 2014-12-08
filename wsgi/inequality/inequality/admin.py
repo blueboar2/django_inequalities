@@ -34,12 +34,12 @@ class TeacherChangeForm(UserChangeForm):
 
 class TeacherAdmin(UserAdmin):
     form = TeacherChangeForm
-    list_display = ('username', 'last_name', 'first_name',
+    list_display = ('username', 'last_name', 'first_name', 'otchestvo',
                     'is_staff', 'is_active')
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         (_('Personal info'), {'fields': (
-                'first_name', 'last_name', 'email'
+                'first_name', 'last_name', 'otchestvo', 'email'
             )}),
         #(_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
@@ -61,12 +61,12 @@ class StudentChangeForm(UserChangeForm):
 
 class StudentAdmin(UserAdmin):
     form = StudentChangeForm
-    list_display = ('username', 'last_name', 'first_name',
+    list_display = ('username', 'last_name', 'first_name', 'otchestvo',
                     'is_staff', 'is_active')
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         (_('Personal info'), {'fields': (
-                'first_name', 'last_name', 'email', 'studentgroup',
+                'first_name', 'last_name', 'otchestvo', 'email', 'studentgroup',
             )}),
         #(_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),

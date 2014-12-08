@@ -132,5 +132,5 @@ def assignajax(request):
       students = Student.objects.filter(studentgroup = value)
       toout = ""
       for student in students:
-         toout = toout + '<option value="' + str(student.id) + '">' + student.first_name + " " + student.last_name + "</option>"
+         toout = toout + '<option value="' + str(student.id) + '">' + student.first_name + " " + student.last_name + " " + student.otchestvo + "</option>"
       return HttpResponse(toout)

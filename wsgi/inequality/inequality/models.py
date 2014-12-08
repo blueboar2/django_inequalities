@@ -12,6 +12,8 @@ from django.core.exceptions import ValidationError
 ###########################################################################################################
 
 class Teacher(User):
+    otchestvo = models.CharField(u'Отчество', max_length=30)
+
     class Meta:
         verbose_name = u'Преподаватель'
         verbose_name_plural = u'Преподаватели'
@@ -24,7 +26,7 @@ class Teacher(User):
     pass
 
     def __unicode__(self):
-       return self.first_name + " " + self.last_name
+       return self.first_name + " " + self.last_name + " " + self.otchestvo
 
 ###########################################################################################################
 ######################################### STUDENT_GROUPS  #################################################
@@ -45,7 +47,9 @@ class Student_groups(models.Model):
 ###########################################################################################################
 
 class Student(User):
+    otchestvo = models.CharField(u'Отчество', max_length=30)
     studentgroup = models.ForeignKey(Student_groups, verbose_name=u'Группа студента', null=True)
+
     class Meta:
         verbose_name = u'Студент'
         verbose_name_plural = u'Студенты'
@@ -58,7 +62,7 @@ class Student(User):
     pass
 
     def __unicode__(self):
-       return self.first_name + " " + self.last_name
+       return self.first_name + " " + self.last_name + " " + self.otchestvo
 
 ###########################################################################################################
 ########################################## INEQUALITIES ###################################################
@@ -106,7 +110,7 @@ class TestsAssign(models.Model):
     truequestions = models.IntegerField(u'Число верных ответов', null = True)
 
     def __unicode__(self):
-       return u'Назначение теста ' + self.testnumber.testname + u' для студента ' + self.studentnumber.first_name + ' ' + self.studentnumber.last_name
+       return u'Назначение теста ' + self.testnumber.testname + u' для студента ' + self.studentnumber.first_name + ' ' + self.studentnumber.last_name + ' ' + self.studentnumber.otchestvo
 
     class Meta:
         verbose_name = u'Назначение теста '
@@ -125,7 +129,7 @@ class TestsStats(models.Model):
     isanswertrue = models.BooleanField(u'Верный ли ответ')
 
     def __unicode__(self):
-       return u'Статистика теста ' + self.assignedtest.testnumber.testname + u' для студента ' + self.assignedtest.studentnumber.first_name + ' ' + self.assignedtest.studentnumber.last_name + u', вопрос номер ' + str(self.questionnumber)
+       return u'Статистика теста ' + self.assignedtest.testnumber.testname + u' для студента ' + self.assignedtest.studentnumber.first_name + ' ' + self.assignedtest.studentnumber.last_name + ' ' + self.assignedtest.studentnumber.otchestvo + u', вопрос номер ' + str(self.questionnumber)
 
     def get_current_test(self):
        tao = TestsAssign.objects.filter(id = self.assignedtest.id).first()
@@ -136,7 +140,7 @@ class TestsStats(models.Model):
     def get_current_student(self):
        tao = TestsAssign.objects.filter(id = self.assignedtest.id).first()
        stud = Student.objects.filter(id = tao.studentnumber.id).first()
-       return stud.first_name + " " + stud.last_name
+       return stud.first_name + " " + stud.last_name + " " + stud.otchestvo
 
     get_current_student.short_description = u'Студент'
 
